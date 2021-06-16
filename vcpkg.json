@@ -1,0 +1,12 @@
+{
+    "name": "imdrawlistparty",
+    "version-string": "0.0.1",
+    "dependencies": [
+        "glad",
+        "glfw3",
+        {
+            "name": "imgui",
+            "features": [ "docking-experimental", "opengl3-glad-binding", "glfw-binding" ]
+        }
+    ]
+}

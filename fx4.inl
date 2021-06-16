@@ -1,0 +1,7 @@
+#define C(u)cos(u)
+#define S(u)sin(u)
+#define W(i,m,c)for(F i=0;i<m;i+=c)
+using V = ImVec2; using F = float; using I = int; I mp[8] = { 0xffff8001,0x82418001,0xa0018cf9,0x8009a289,0x80098289,0xa0018ef1,0x80058001,0x8001ffff }, t1[8] = { 0x4003a001,0x10001,0x30003,0x8045ffff,0x3a00140,0x1000500,0x21000704,0xb80ffff }, K = 16; F px = 1.5, py = 1.5, pa = 0, fv = 1, mx = 0;
+#define M(m,x,y)m[I(y/2)]&(1<<I(32-(x+(I(y)%2?K:0))))
+#define R(k,l,m,n,r,p)d->AddRectFilled({a.x+i,(b.y+a.y)/2+(k)},{a.x+i+1,(b.y+a.y)/2+(k)+1},M((l),(m),(n))?(r):(p))
+void FX(ImDrawList* d, V a, V b, V s, ImVec4 m, F t) { W(i, s.x, 1) { F ag = pa - fv / 2 + fv * i / s.x; W(j, K, .01) { F x = px + j * C(ag), y = py + j * S(ag), di = j * cos(ag - pa), ch = min(300, I(s.y / di)); R(ch / 2, t1, I(32 * x) % K, I(32 * y) % K, 0xff082f3d, 0xff042530); if (M(mp, x, y)) { F wx = x - I(x + .5), wy = y - I(y + .5); I tx = I(64 * (abs(wy) > abs(wx) ? wy : wx)) % K; if (tx < 0)tx += K; W(c, ch, 1) { I ty = I(64 * c / ch) % K; R(-ch / 2 + c, t1, tx, ty, 0xff062036, 0xff044275); }break; } } }if (m.w == 0)mx = m.x; if (m.w > 0) { pa += m.x - mx; mx = m.x; }if (m.z > 0) { px = max(1.3, min(14.5, px + .05 * C(pa))); py = max(1.3, min(14.5, py + .05 * S(pa))); } }
